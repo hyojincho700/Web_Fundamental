@@ -99,4 +99,44 @@ public class DeptDao {
 		}		
 		return rows;
 	}
+	
+	public boolean insert(DeptDto dto) {
+		boolean isSuccess = false;
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			con = ConnLocator.getConnection();
+			StringBuffer sql = new StringBuffer();
+			sql.append("INSERT INTO dept(deptno, dname, loc) ");
+			sql.append("VALUES(?, ?, ?);");
+			pstmt = con.prepareStatement(sql.toString());
+			int index = 0;
+			pstmt.setInt(++index, dto.getNo());
+			pstmt.setString(++index, dto.getName());
+			pstmt.setString(++index, dto.getLoc());
+			
+			pstmt.executeUpdate();
+			
+			isSuccess = true;
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {	
+			try {
+				if(pstmt != null) pstmt.close();
+				if(con != null) con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}	
+		
+		
+		
+		return isSuccess;
+	}
+	
 }

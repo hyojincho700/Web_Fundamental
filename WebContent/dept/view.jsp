@@ -17,6 +17,12 @@
 			<h3>부서 상세보기</h3>
 			<form name="f" method="post">
 				<div class="form-group row">
+					<label for="number" class="col-sm-2 col-form-label">번호</label>
+					<div class="col-sm-10">
+						<input type="number" class="form-control" id="no" name="no" value="">
+					</div>
+				</div>
+				<div class="form-group row">
 					<label for="no" class="col-sm-2 col-form-label">부서번호</label>
 					<div class="col-sm-10">
 						<input type="number" class="form-control" id="no" name="no" value="10">
