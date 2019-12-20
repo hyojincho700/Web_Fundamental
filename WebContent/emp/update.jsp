@@ -1,20 +1,28 @@
 <%@page import="kr.co.acorn.dto.DeptDto"%>
-<%@page import="kr.co.acorn.dao.DeptDao"%>
+<%@page import="kr.co.acorn.dto.EmpDto"%>
+<%@page import="kr.co.acorn.dao.EmpDao"%>
 <%@ page pageEncoding="utf-8"%>
 <%
 	request.setCharacterEncoding("utf-8");
-	int no = Integer.parseInt(request.getParameter("no"));
+	int no = 0; 
 	String name = request.getParameter("name");
-	String loc = request.getParameter("loc");
+	String job = request.getParameter("job");
+	int mgr = Integer.parseInt(request.getParameter("mgr"));
+	int sal = Integer.parseInt(request.getParameter("sal"));
+	int comm = Integer.parseInt(request.getParameter("comm"));
+	int deptNo = Integer.parseInt(request.getParameter("deptNo"));
 	String tempPage = request.getParameter("page");
 	
-	DeptDao dao = DeptDao.getInstance();
-	DeptDto dto = new DeptDto(no,name,loc);
-	boolean isSuccess = dao.update(dto);
+	DeptDto deptDto = new DeptDto(deptNo, null, null);
+	
+	EmpDao dao = EmpDao.getInstance();
+	EmpDto dto = new EmpDto(no,name,job,mgr,null,sal,comm,null);
+	
+	boolean isSuccess = dao.update(dto); 
 	if(isSuccess) {
 %>	
 	<script>
-	alert('부서 정보가 수정되었습니다.');
+	alert('사원 정보가 수정되었습니다.');
 	location.href="view.jsp?page=<%=tempPage%>%no=a<%=no%>";
 	</script>
 <%  }else {%>

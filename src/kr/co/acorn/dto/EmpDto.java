@@ -12,6 +12,22 @@ public class EmpDto {
 	//private String dname;
 	private DeptDto deptDto;
 	
+	public EmpDto(int no, String name, String job, int mgr, String hiredate, DeptDto deptDto) {
+		this(no, name, job, mgr, hiredate, 0, 0, deptDto); // 다른 생성자 호출하는 this. 두 번 초기화 할 이유 없음
+	}
+	
+	public EmpDto(int no, String name, String job, int mgr, String hiredate, int sal, int comm, DeptDto deptDto) {
+		super();
+		this.no = no;
+		this.name = name;
+		this.job = job;
+		this.mgr = mgr;
+		this.hiredate = hiredate;
+		this.sal = sal;
+		this.comm = comm;
+		this.deptDto = deptDto;
+	}
+
 	public int getNo() {
 		return no;
 	}

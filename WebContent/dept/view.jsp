@@ -1,50 +1,50 @@
 <%@page import="kr.co.acorn.dto.DeptDto"%>
 <%@page import="kr.co.acorn.dao.DeptDao"%>
-<%@ page pageEncoding="utf-8" %>
-<%@ include file="../inc/header.jsp" %>  
+<%@ page pageEncoding="utf-8"%>
+<%@ include file="../inc/header.jsp"%>
 <%
 	String tempPage = request.getParameter("page");
 	String tempNo = request.getParameter("no");
-	if(tempPage == null || tempPage.length()==0){
+	if (tempPage == null || tempPage.length() == 0) {
 		tempPage = "1";
 	}
-	if(tempNo == null || tempNo.length()==0){
-		response.sendRedirect("list.jsp?page="+tempPage);
+	if (tempNo == null || tempNo.length() == 0) {
+		response.sendRedirect("list.jsp?page=" + tempPage);
 		return;
 	}
 	int cPage = 0;
 	int no = 0;
-	try{
+	try {
 		cPage = Integer.parseInt(tempPage);
-	}catch(NumberFormatException e){
+	} catch (NumberFormatException e) {
 		cPage = 1;
 	}
-	try{
+	try {
 		no = Integer.parseInt(tempNo);
-	}catch(NumberFormatException e){
-		response.sendRedirect("list.jsp?page="+cPage);
+	} catch (NumberFormatException e) {
+		response.sendRedirect("list.jsp?page=" + cPage);
 		return;
 	}
-	
+
 	DeptDao dao = DeptDao.getInstance();
 	DeptDto dto = dao.select(no);
-	if(dto == null){
-		response.sendRedirect("list.jsp?page="+cPage);
+	if (dto == null) {
+		response.sendRedirect("list.jsp?page=" + cPage);
 		return;
 	}
 	String name = dto.getName();
 	String loc = dto.getLoc();
 %>
-  <!-- breadcrumb start-->
-  <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="/index.jsp">Home</a></li>
-      <li class="breadcrumb-item active" aria-current="page">DEPT</li>
-    </ol>
-  </nav>
-  <!-- breadcrumb end-->
+<!-- breadcrumb start-->
+<nav aria-label="breadcrumb">
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item"><a href="/index.jsp">Home</a></li>
+		<li class="breadcrumb-item active" aria-current="page">사원관리</li>
+	</ol>
+</nav>
+<!-- breadcrumb end-->
 
-  <!-- main start-->
+<!-- main start-->
   <div class="container">
     <div class="row">
       <div class="col-lg-12">
@@ -73,7 +73,7 @@
 		  <input type="hidden" name="page" value="<%=cPage%>"/>
 		</form>
 		<div class="text-right">
-			<a href="list.jsp?page=<%=cPage %>" class="btn btn-outline-secondary">목록</a>
+			<button type="button" id="prevPage" class="btn btn-outline-secondary">이전</button>
 			<button type="button" id="updateDept" class="btn btn-outline-success">수정</button>
 			<button type="button" id="deleteDept" class="btn btn-outline-danger">삭제</button>
         </div>
@@ -85,6 +85,9 @@
   <script>
   $(function(){
 	  $("#no").focus();
+	  $("#prevPage").click(function() {
+			history.back(-1);
+		});
 	  $("#updateDept").click(function(){
 		  //자바스크립트 유효성 검사
 		  if($("#no").val().length==0){
