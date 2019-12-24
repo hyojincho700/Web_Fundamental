@@ -1,3 +1,4 @@
+<%@page import="kr.co.acorn.dto.MemberDto"%>
 <%@ page pageEncoding="utf-8"%>
 <!doctype html>
 <html lang="en">
@@ -17,7 +18,7 @@
 <body>
   <!-- navbar start    -->
   <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#563d7c;">
-    <a class="navbar-brand" href="#">사원관리</a>
+    <a class="navbar-brand" href="#">HOME</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
       aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -42,13 +43,27 @@
 				<li class="nav-item <%if(uri.startsWith("/member")){%>active<%} %>">
 					<a class="nav-link" href="/member/list.jsp">회원관리</a>
 				</li>
+				<li class="nav-item <%if(uri.startsWith("/file")){%>active<%} %>">
+					<a class="nav-link" href="/file/index.jsp">파일업로드</a>
+				</li>
 
 			</ul>
 			<ul class="navbar-nav">
+			<%
+				MemberDto memberDto = (MemberDto)session.getAttribute("member");
+				if(memberDto == null) {
+			%>
 				<li class="nav-item"><a class="nav-link"
 					href="/member/write.jsp">회원가입</a></li>
 				<li class="nav-item"><a class="nav-link"
-					href="/member/write.jsp">로그인</a></li>
+					href="/member/login.jsp">로그인</a></li>
+			<% } else { %>
+				<li class="nav-item"><a class="nav-link"
+				href="#"><%=memberDto.getName() %>님 환영합니다.</a></li>
+				<li class="nav-item"><a class="nav-link"
+				href="/member/logout.jsp">로그아웃</a></li>
+		    <%} %>
+		    
 			</ul>
     </div>
   </nav>

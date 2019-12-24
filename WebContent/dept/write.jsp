@@ -55,7 +55,9 @@
 				
 				<div class="text-right"> <!-- 오른쪽 정렬 -->
 				<a href="list.jsp?page=<%=cPage %>" class="btn btn-outline-secondary">목록</a>
+				<%if(memberDto != null) { %>
 				<button type="button" id="saveDept" class="btn btn-outline-success">저장</button> <!-- 에벤트 걸려면 id값이 꼭 있어야 함 -->
+				<%} %>
 				</div>
 				
 			</div>

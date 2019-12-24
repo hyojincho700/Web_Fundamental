@@ -1,6 +1,12 @@
 
 <%@ page pageEncoding="utf-8"%>
 <%@ include file="../inc/header.jsp"%>
+	<%  // 로그인 안 한 사람은 못 보게 하는 코드
+		if(memberDto != null) {
+			response.sendRedirect("/index.jsp");
+			return;
+		}
+	%>
 
 <!--breadcrumb start-->
 <nav aria-label="breadcrumb">
