@@ -6,6 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
 import kr.co.acorn.dto.DeptDto;
 import kr.co.acorn.dto.EmpDto;
 import kr.co.acorn.util.ConnLocator;
@@ -300,5 +303,63 @@ public class EmpDao {
 		}
 		
 		return isSuccess;
+	}
+	
+	public String selectJson(int start, int len){
+		JSONObject jsonObj = new JSONObject();
+		JSONArray jsonArray = new JSONArray();
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs= null;
+		try {
+			con = ConnLocator.getConnection();
+			StringBuffer sql = new StringBuffer();
+			sql.append("SELECT empno, ename, job, mgr, dname, e.deptno, DATE_FORMAT(hiredate,'%Y/%m/%d') ");
+			sql.append("FROM emp e, dept d ");
+			sql.append("WHERE d.deptno = e.deptno ");
+			sql.append("ORDER BY hiredate DESC, ename asc ");
+			sql.append("LIMIT ?, ?");
+			pstmt = con.prepareStatement(sql.toString());
+			int index = 0;
+			pstmt.setInt(++index, start);
+			pstmt.setInt(++index, len);
+			
+			rs = pstmt.executeQuery();
+			DeptDto deptDto = null;
+			JSONObject item = null;
+			while(rs.next()) {
+				index = 0;
+				int no = rs.getInt(++index);
+				String name = rs.getString(++index);
+				String job = rs.getString(++index);
+				int mgr = rs.getInt(++index);
+				
+				String dname = rs.getString(++index);
+				int deptNo = rs.getInt(++index);
+				deptDto = new DeptDto(deptNo, dname, null); // EmpDao가 가지고 있는 DeptDto를 활용해서 . loc는 없으니까 null
+				
+				String hiredate = rs.getString(++index);
+				
+				item = new JSONObject();
+				item.put("no", no);
+				item.put("name", name);
+				jsonArray.add(item);
+			}
+			jsonObj.put("items",jsonArray);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(con != null) con.close();
+			} catch (SQLException e2) {
+				// TODO: handle exception
+			}
+		}
+		return jsonObj.toString();
 	}
 	}

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>step04_ajax_jquery_jsonp.html</title>
+<script src="../js/jquery-3.4.1.js"></script>
+<script>
+	$(function() {
+		$("#loadAjax").click(function() {
+			$.ajax({
+				type : 'GET',
+				url : 'naver_proxy.jsp', // 이건 똑같이 가져와도 됨. 거기에 있는 거 가져오는 거니까
+				dataType : 'json',
+				jsonp : 'call', 
+				error : function() {
+					alert('Json Load Error');
+				},
+				success : function(obj) { // 성공하면 원하는 obj 생성
+					console.log(obj); 
+					console.log(typeof obj);
+					$("#sung").html(JSON.stringify(obj));
+				}
+			});
+		});
+	});
+</script>
+</head>
+<body>
+	<div id="sung"></div>
+	<button id="loadAjax">Ajax 불러오기</button>
+</body>
+</html>

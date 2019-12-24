@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>step02_ajax_jquery_json.html</title>
+<script src="../js/jquery-3.4.1.js"></script>
+<script>
+	$(function() {
+		$("#loadAjax").click(function() {
+			$.ajax({
+				//type : 'GET',
+				//url : 'emp_json.jsp?start=0&length=10',
+				type : 'POST',
+				url : 'emp_json.jsp',
+				data : {"start":0,"length":5} // post 방식은 url을 붙이지 않기 때문에, 따로 data로 만들어 parameter를 넣어준다.
+				dataType : 'json',//xml, html 도 가능
+				error : function() {
+					alert('Json Load Error');
+				},
+				success : function(obj) {
+					console.log(obj); // 호출해 보면 이미 JSON.parse(xhr.responseText); 가 되어 있음. 원래 ajax로 가져오면 문자열로 넘어오는데 jquery로 하면 object로 넘어온다.
+					console.log(typeof obj);
+					const listArray = obj.items;
+					let msg = '';
+					for(let i=0;i<listArray.length;i++){ 
+						let no = listArray[i].no;
+						let name = listArray[i].name;
+						msg += no +","+name+"<br>";
+					}
+					$('#sung').html(msg);
+				}
+			});
+		});
+	});
+</script>
+</head>
+<body>
+	<div id="sung"></div>
+	<button id="loadAjax">Ajax 불러오기</button>
+</body>
+</html>

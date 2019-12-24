@@ -28,25 +28,28 @@
     %>
 
     <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-      <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-        <li class="nav-item <%if(uri.startsWith("/dept")){%>active<%} %>">
-          <a class="nav-link" href="/dept/list.jsp">부서관리 </a>
-        </li>
-        <li class="nav-item <%if(uri.startsWith("/emp")){%>active<%} %>">
-          <a class="nav-link" href="/emp/list.jsp">사원관리</a>
-        </li>
-        <li class="nav-item <%if(uri.startsWith("/crawling")){%>active<%} %>">
-          <a class="nav-link" href="/crawling/list.jsp">크롤링</a>
-        </li>
-        <li class="nav-item <%if(uri.startsWith("/notice")){%>active<%} %>">
-          <a class="nav-link" href="/notice/list.jsp">공지사항</a>
-        </li>
+			<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+				<li class="nav-item <%if(uri.startsWith("/dept")){%>active<%} %>">
+					<a class="nav-link" href="/dept/list.jsp">부서관리 </a>
+				</li>
+				<li class="nav-item <%if(uri.startsWith("/emp")){%>active<%} %>">
+					<a class="nav-link" href="/emp/list.jsp">사원관리</a>
+				</li>
+				<li
+					class="nav-item <%if(uri.startsWith("/crawling")){%>active<%} %>">
+					<a class="nav-link" href="/crawling/list.jsp">크롤링</a>
+				</li>
+				<li class="nav-item <%if(uri.startsWith("/member")){%>active<%} %>">
+					<a class="nav-link" href="/member/list.jsp">회원관리</a>
+				</li>
 
-      </ul>
-      <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-      </form>
+			</ul>
+			<ul class="navbar-nav">
+				<li class="nav-item"><a class="nav-link"
+					href="/member/write.jsp">회원가입</a></li>
+				<li class="nav-item"><a class="nav-link"
+					href="/member/write.jsp">로그인</a></li>
+			</ul>
     </div>
   </nav>
   <!-- navbar end-->

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8">
+<title>step03_crossdomain.html</title>
+</head>
+
+<body>
+	<div id="sung"></div>
+</body>
+
+<script>
+	//jsonp 방식 : url에 call해서 test를 입력하면 test함수가 만들어지고 그 안에 obj들을 넣어준다. 다만 이걸 사용하려면, 그 외부 서버가 call back을 지원해주어야 함.
+	//           하지만 대부분 허용해 주지 않지. -> proxy 이용
+	function test(obj){
+		document.getElementById("sung").innerHTML = JSON.stringify(obj);
+	}
+</script>
+
+<script src="http://acornacademy.co.kr/blockchain/naver_json.jsp?call=test"></script>
+</html>
